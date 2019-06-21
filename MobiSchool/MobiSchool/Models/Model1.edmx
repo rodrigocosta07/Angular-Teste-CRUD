@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MobiSchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Disciplina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Enunciado" Type="varchar(max)" Nullable="false" />
+          <Property Name="Comentario" Type="varchar(max)" />
+          <Property Name="DisciplinaId" Type="int" Nullable="false" />
+          <Property Name="TipoDificuldadeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Resposta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
+          <Property Name="Correta" Type="bit" Nullable="false" />
+          <Property Name="PerguntaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoDificuldade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Pergunta_Disciplina1">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pergunta">
+              <PropertyRef Name="DisciplinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pergunta_TipoDificuldade1">
+          <End Role="TipoDificuldade" Type="Self.TipoDificuldade" Multiplicity="1" />
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDificuldade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pergunta">
+              <PropertyRef Name="TipoDificuldadeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Pergunta1">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="Resposta" Type="Self.Resposta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MobiSchoolModelStoreContainer">
+          <EntitySet Name="Disciplina" EntityType="Self.Disciplina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pergunta" EntityType="Self.Pergunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resposta" EntityType="Self.Resposta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoDificuldade" EntityType="Self.TipoDificuldade" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pergunta_Disciplina1" Association="Self.FK_Pergunta_Disciplina1">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Pergunta" EntitySet="Pergunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pergunta_TipoDificuldade1" Association="Self.FK_Pergunta_TipoDificuldade1">
+            <End Role="TipoDificuldade" EntitySet="TipoDificuldade" />
+            <End Role="Pergunta" EntitySet="Pergunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Pergunta1" Association="Self.FK_Resposta_Pergunta1">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MobiSchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Disciplina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pergunta" Relationship="Self.FK_Pergunta_Disciplina1" FromRole="Disciplina" ToRole="Pergunta" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Enunciado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DisciplinaId" Type="Int32" Nullable="false" />
+          <Property Name="TipoDificuldadeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disciplina" Relationship="Self.FK_Pergunta_Disciplina1" FromRole="Pergunta" ToRole="Disciplina" />
+          <NavigationProperty Name="TipoDificuldade" Relationship="Self.FK_Pergunta_TipoDificuldade1" FromRole="Pergunta" ToRole="TipoDificuldade" />
+          <NavigationProperty Name="Resposta" Relationship="Self.FK_Resposta_Pergunta1" FromRole="Pergunta" ToRole="Resposta" />
+        </EntityType>
+        <EntityType Name="Resposta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correta" Type="Boolean" Nullable="false" />
+          <Property Name="PerguntaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pergunta" Relationship="Self.FK_Resposta_Pergunta1" FromRole="Resposta" ToRole="Pergunta" />
+        </EntityType>
+        <EntityType Name="TipoDificuldade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pergunta" Relationship="Self.FK_Pergunta_TipoDificuldade1" FromRole="TipoDificuldade" ToRole="Pergunta" />
+        </EntityType>
+        <Association Name="FK_Pergunta_Disciplina1">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pergunta">
+              <PropertyRef Name="DisciplinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pergunta_TipoDificuldade1">
+          <End Role="TipoDificuldade" Type="Self.TipoDificuldade" Multiplicity="1" />
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDificuldade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pergunta">
+              <PropertyRef Name="TipoDificuldadeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resposta_Pergunta1">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="Resposta" Type="Self.Resposta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Resposta">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MobiSchoolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Disciplina" EntityType="Self.Disciplina" />
+          <EntitySet Name="Pergunta" EntityType="Self.Pergunta" />
+          <EntitySet Name="Resposta" EntityType="Self.Resposta" />
+          <EntitySet Name="TipoDificuldade" EntityType="Self.TipoDificuldade" />
+          <AssociationSet Name="FK_Pergunta_Disciplina1" Association="Self.FK_Pergunta_Disciplina1">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Pergunta" EntitySet="Pergunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pergunta_TipoDificuldade1" Association="Self.FK_Pergunta_TipoDificuldade1">
+            <End Role="TipoDificuldade" EntitySet="TipoDificuldade" />
+            <End Role="Pergunta" EntitySet="Pergunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resposta_Pergunta1" Association="Self.FK_Resposta_Pergunta1">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="Resposta" EntitySet="Resposta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MobiSchoolModelStoreContainer" CdmEntityContainer="MobiSchoolEntities">
+          <EntitySetMapping Name="Disciplina">
+            <EntityTypeMapping TypeName="MobiSchoolModel.Disciplina">
+              <MappingFragment StoreEntitySet="Disciplina">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pergunta">
+            <EntityTypeMapping TypeName="MobiSchoolModel.Pergunta">
+              <MappingFragment StoreEntitySet="Pergunta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Enunciado" ColumnName="Enunciado" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="DisciplinaId" ColumnName="DisciplinaId" />
+                <ScalarProperty Name="TipoDificuldadeId" ColumnName="TipoDificuldadeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resposta">
+            <EntityTypeMapping TypeName="MobiSchoolModel.Resposta">
+              <MappingFragment StoreEntitySet="Resposta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Correta" ColumnName="Correta" />
+                <ScalarProperty Name="PerguntaId" ColumnName="PerguntaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDificuldade">
+            <EntityTypeMapping TypeName="MobiSchoolModel.TipoDificuldade">
+              <MappingFragment StoreEntitySet="TipoDificuldade">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

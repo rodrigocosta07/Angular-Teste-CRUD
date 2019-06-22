@@ -18,16 +18,20 @@ namespace MobiSchool.Models
         public MobiSchoolEntities()
             : base("name=MobiSchoolEntities")
         {
+            Configuration.LazyLoadingEnabled = false;
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
+
         }
     
         public virtual DbSet<Disciplina> Disciplina { get; set; }
         public virtual DbSet<Pergunta> Pergunta { get; set; }
         public virtual DbSet<Resposta> Resposta { get; set; }
         public virtual DbSet<TipoDificuldade> TipoDificuldade { get; set; }
+
     }
 }

@@ -9,6 +9,7 @@
 
 namespace MobiSchool.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,9 +20,11 @@ namespace MobiSchool.Models
         public string Comentario { get; set; }
         public int DisciplinaId { get; set; }
         public int TipoDificuldadeId { get; set; }
-    
+
         public virtual Disciplina Disciplina { get; set; }
+
         public virtual TipoDificuldade TipoDificuldade { get; set; }
+
         public virtual Resposta Resposta { get; set; }
     }
 }

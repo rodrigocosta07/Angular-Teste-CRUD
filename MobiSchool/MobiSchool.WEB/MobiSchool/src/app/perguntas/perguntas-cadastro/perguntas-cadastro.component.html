@@ -1,0 +1,28 @@
+<form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px">
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="enunciado">Enunciado</label>
+      <input type="text" class="form-control" id="enunciado" placeholder="Enunciado"
+       formControlName="enunciado" 
+       [ngClass]="{'is-invalid': submitted && hasError('enunciado')}"
+       >
+      <div class="invalid-feedback" *ngIf="hasError('enunciado') && hasError('enunciado')['required']">
+        Preencha o Campo
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="comentario">Comentario</label>
+      <input type="text" class="form-control" id="comentario" placeholder="Comentario" 
+       formControlName="comentario"
+       [ngClass]="{'is-invalid': submitted && hasError('comentario')}">
+      <div class="invalid-feedback">
+        Preencha o Campo
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

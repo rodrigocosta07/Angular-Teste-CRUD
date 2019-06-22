@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using MobiSchool.Models;
 
@@ -15,7 +16,7 @@ namespace MobiSchool.Controllers
     public class PerguntasController : ApiController
     {
         private MobiSchoolEntities db = new MobiSchoolEntities();
-
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         // GET: api/Perguntas
         public IQueryable<Pergunta> GetPergunta()
         {
@@ -69,7 +70,7 @@ namespace MobiSchool.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         // POST: api/Perguntas
         [ResponseType(typeof(Pergunta))]
         public IHttpActionResult PostPergunta(Pergunta pergunta)

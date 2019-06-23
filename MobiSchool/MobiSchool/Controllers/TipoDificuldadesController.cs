@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MobiSchool.Models;
+using System.Web.Http.Cors;
+
 
 namespace MobiSchool.Controllers
 {
@@ -17,6 +19,7 @@ namespace MobiSchool.Controllers
         private MobiSchoolEntities db = new MobiSchoolEntities();
 
         // GET: api/TipoDificuldades
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public IQueryable<TipoDificuldade> GetTipoDificuldade()
         {
             return db.TipoDificuldade;

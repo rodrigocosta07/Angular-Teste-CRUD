@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Pergunta } from "./pergunta";
-import { tap, delay, take } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { CrudService } from 'src/shared/crud-service';
 

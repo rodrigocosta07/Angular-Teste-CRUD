@@ -13,8 +13,27 @@ export class CrudService<T> {
     );
   }
 
+  loadByID(id) {
+    return this.http.get<T>(`${this.API_URL}/${id}`).pipe(take(1));
+  }
+  
   create(record: T){
     return this.http.post(this.API_URL, record).pipe(take(1));
+  }
+
+  private update(record: T) {
+    return this.http.put(`${this.API_URL}/${record['id']}`, record).pipe(take(1));
+  }
+
+  save(record: T) {
+    if (record['id']) {
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  remove(id) {
+    return this.http.delete(`${this.API_URL}/${id}`).pipe(take(1));
   }
 }
 

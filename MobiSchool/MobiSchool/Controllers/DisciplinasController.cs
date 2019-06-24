@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using MobiSchool.Models;
 
@@ -17,6 +18,7 @@ namespace MobiSchool.Controllers
         private MobiSchoolEntities db = new MobiSchoolEntities();
 
         // GET: api/Disciplinas
+        [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
         public IQueryable<Disciplina> GetDisciplina()
         {
             return db.Disciplina;

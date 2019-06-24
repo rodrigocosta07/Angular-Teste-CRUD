@@ -19,15 +19,24 @@
         Preencha o Campo
       </div>
     </div>
-  </div>
+  
   <div class="col-md-4 mb-3">
     <label for="dificuldade">Tipo Dificuldade</label>
     <select class="form-control" id="dificuldade" formControlName="TipoDificuldadeId"
-    [ngClass]="{'is-invalid': submitted && hasError('comentario')}">
+    [ngClass]="{'is-invalid': submitted && hasError('TipoDificuldadeId')}">
       <option  *ngFor="let dificuldade of dificuldades | async" value="{{dificuldade.Id}}"> {{dificuldade.Tipo}} </option>
     </select>
   </div>
 
+  <div class="col-md-4 mb-3">
+    <label for="disciplina">Disciplina</label>
+    <select class="form-control" id="dificuldade" formControlName="DisciplinaId"
+    [ngClass]="{'is-invalid': submitted && hasError('DisciplinaId')}">
+      <option  *ngFor="let disciplina of disciplinas | async" value="{{disciplina.Id}}"> {{disciplina.Nome}} </option>
+    </select>
+  </div>
+
+</div>
   <div style="margin-top: 10px">
     <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
     <button type="button" class="btn btn-default" (click)="onCancel()">Cancelar</button>
